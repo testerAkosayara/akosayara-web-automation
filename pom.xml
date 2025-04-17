@@ -12,8 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <aspectj.version>1.9.22.1</aspectj.version>
   </properties>
 
@@ -85,20 +85,42 @@
         <version>3.11.0</version> <!-- Latest stable version as of March 24, 2023 -->
       </plugin>
 
+
+      <!--  for deleting old allure report and generating new one-->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <delete dir="${project.basedir}/allure-results"/>
+                <delete dir="${project.basedir}/allure-report"/>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
       <!-- Maven Surefire Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
         <configuration>
-          <testFailureIgnore>false</testFailureIgnore>
-          <useFile>true</useFile>
-          <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-          <argLine>
-            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-          </argLine>
+          <rerunFailingTestsCount>3</rerunFailingTestsCount>
+          <forkCount>1</forkCount>
+          <argLine>-Xmx1024m</argLine>
         </configuration>
       </plugin>
+
 
 
       <!-- Maven Jar Plugin -->
@@ -130,14 +152,14 @@
       </plugin>
 
       <!-- Maven Project Info Reports Plugin -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+      <plugin>>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>3.4.1</version> <!-- Latest stable version as of March 24, 2023 -->
       </plugin>
 
       <!-- Allure Maven Plugin -->
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
         <version>2.10.0</version> <!-- Latest stable version as of March 24, 2023 -->
@@ -145,7 +167,19 @@
           <reportVersion>2.13.1</reportVersion>
           <reportDirectory>allure-report/</reportDirectory>
         </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
+
+
+
+
     </plugins>
   </build>
 

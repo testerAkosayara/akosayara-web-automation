@@ -1,3 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"Login to the Akosayara and Verify Homepage","5587","loginAndVerifyDashboard","Surefire suite","Thu Feb 13 11:43:22 IST 2025","passed","Thu Feb 13 11:43:28 IST 2025","com.automate.tests.LoginTest","Surefire test","com.automate.tests.LoginTest","loginAndVerifyDashboard"
-"Login to the Akosayara","3708","loginAko","Surefire suite","Thu Feb 13 11:43:17 IST 2025","passed","Thu Feb 13 11:43:21 IST 2025","com.automate.tests.LoginTest","Surefire test","com.automate.tests.LoginTest","loginAko"

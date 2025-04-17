@@ -29,6 +29,9 @@ public class TestBase {
                 Log.info("Launching Chrome Browser...");
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized"); // Maximizing the browser
+//                options.addArguments("--headless=new"); // Run in headless mode
+//                options.addArguments("--disable-gpu"); // Disable GPU acceleration
+//                options.addArguments("--window-size=1920,1080"); // Set a fixed window size
 
                 driver = new ChromeDriver(options);
             } else if (browser.equals("firefox")) {

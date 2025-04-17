@@ -10,27 +10,63 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
 
+    @Step
+    @Description("Login to the Akosayara with valid email and password")
+    @Test
+    public void WithValidEmailAndPassword() { // done
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.openAkoLogin();
+        loginPage.loginWithValidCredentialsEmail();
+        Assert.assertEquals(loginPage.loggedInAccount(), "My account");
+    }
 
     @Step
-    @Description("Login to the Akosayara")
-    @Test(enabled = true)
-    public void loginAko() {
-
+    @Description("checking login for invalid email")
+    @Test
+    public void WithInValidEmailAndInvalidPassword() { // done
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.openAko( );
-        loginPage.loginWithValidCredentialsEmail( );
+        loginPage.openAkoLogin();
+        loginPage.loginWithInValidCredentialsEmail();
+        Assert.assertEquals(loginPage.userNotFoundText(), "User not found with provided credentials");
+    }
+
+    @Step
+    @Description("Login to the Akosayara with valid email and invalid password")
+    @Test
+    public void WithValidEmailAndInvalidPassword() { // done
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.openAkoLogin();
+        loginPage.loginWithValidEmailAndInvalidPassword();
+        Assert.assertEquals(loginPage.invalidPasswordText(), "Incorrect password");
+    }
+
+    @Step
+    @Description("Login to the Akosayara with valid phone and password and Verify Homepage")
+    @Test
+    public void withValidPhoneAndPassword() { // done
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.openAkoLogin();
+        loginPage.loginWithValidCredentialsPhone();
+        Assert.assertEquals(loginPage.loggedInAccount(), "My account");
     }
 
     @Step
     @Description("Login to the Akosayara and Verify Homepage")
     @Test
-    public void loginAndVerifyDashboard() {
-
+    public void LoginWithValidPhoneAndInvalidPassword() { // done
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.openAko();
-        loginPage.loginWithValidCredentialsEmail( );
-        HomePage dashboardPage = loginPage.afterLogin();
-        Assert.assertEquals(dashboardPage.loggedInAccount( ), "My account");
+        loginPage.openAkoLogin();
+        loginPage.loginWithValidPhoneAndInvalidPassword();
+        Assert.assertEquals(loginPage.invalidPasswordText(), "Incorrect password");
+    }
 
+    @Step
+    @Description("Login to the Akosayara and Verify Homepage")
+    @Test
+    public void LoginWithInvalidPhoneAndInvalidPassword() { // done
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.openAkoLogin();
+        loginPage.loginWithInValidPhoneAndInvalidPassword();
+        Assert.assertEquals(loginPage.userNotFoundText(), "User not found with provided credentials");
     }
 }
