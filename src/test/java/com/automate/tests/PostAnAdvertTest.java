@@ -17,5 +17,11 @@ public class PostAnAdvertTest extends TestBase {
         PostAnAdvert postAnAdvert = new PostAnAdvert(driver);
         postAnAdvert.openAko();
         postAnAdvert.startSellAdvert();
+        postAnAdvert.fillBasicDetails();
+        postAnAdvert.fillSpecifications();
+        postAnAdvert.fillFeatures();
+        postAnAdvert.fillPriceSection();
+        postAnAdvert.fillImagesSection();
+
     }
 }
